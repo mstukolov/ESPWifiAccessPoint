@@ -42,26 +42,7 @@ void handleRoot() {
 	content += netList;
 	content += "</table>";
 
-
-
-	
-	content += "<script>";
-	content += "function sendRequest(network) {";
-	content += "var password = prompt(network + ' Введите пароль?', 100);";
-	
-	//content += "console.log('/connect?wifi=' + network + '&password=' + password);";
-	content += "var http = new XMLHttpRequest();";
-	
-	
-//	content += "http.open('GET', '/connect?wifi=' + network + '&password=' + password, true);";
-	content += "http.open('GET', '/connect', true);";
-
-	
-	content += "http.send(null);";
-	content += "}</script>";
-
 	content += "</body></html>";
-	
 	server.send(200, "text/html", content);
 }
 
@@ -80,8 +61,6 @@ void connectToWifi() {
 	content += stpsw;
 	content += "</br>";
 
-	content += "<a href='/'>Подключиться</a>";
-	content += "</br>";
 	content += "<a href='/'>Вернуться к выбору сети</a>";
 	content += "</html>";
 	server.send(200, "text/html", content);
