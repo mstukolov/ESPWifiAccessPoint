@@ -15,11 +15,11 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="__vm\.ESPWifiAccessPoint.vsarduino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <None Include="ESPWifiBMP180AccessPoint.ino" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ESPWifiBMP180AccessPoint.ino" />
+    <ClInclude Include="__vm\.ESPWifiBMP180AccessPoint.vsarduino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
