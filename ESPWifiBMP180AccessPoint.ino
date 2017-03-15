@@ -24,14 +24,19 @@ ESP8266WebServer server(80);
 MQTTClient client;
 #define ORG "kwxqcy" // имя организации
 #define DEVICE_TYPE "BMP180" // тип устройства
-#define DEVICE_NAME "ESP8266-12771314" // тип устройства
+#define DEVICE_NAME = ""; // тип устройства
+
+
 #define TOKEN "12345678" // - задаешь в IOT хабе
 char mqttserver[] = ORG ".messaging.internetofthings.ibmcloud.com"; // подключаемся к Bluemix
 char topic[] = "iot-2/evt/status/fmt/json";
 
 char authMethod[] = "use-token-auth";
 char token[] = TOKEN;
-String clientID = "d:" ORG ":" DEVICE_TYPE ":" DEVICE_NAME;
+
+String clientID;
+String deviceID;
+
 char  cID[100];
 boolean isBluemixConnected = false;
 //----------------------------------------------
@@ -51,7 +56,6 @@ const int sleepTimeS = 10;
 
 //Функция проверяющая доступность сервиса IBM с подключенным внешнем wifi
 void testInternetConnection() {
-	//const char* host = "pure-caverns-1350.herokuapp.com";
 	const char* host = "kwxqcy.messaging.internetofthings.ibmcloud.com";
 
 	Serial.print("connecting to ");
@@ -92,10 +96,16 @@ void testInternetConnection() {
 }
 //Функция подключения к сервису IBM Bluemix
 void connectToBluemix() {
-	
+
+	//String chip = ESP.getChipId();
+
+	clientID = "d:" ORG ":" DEVICE_TYPE ":" "ESP8266-";
+
 	clientID.toCharArray(cID, 50);
 	client.begin(mqttserver, 8883, net);
-	Serial.println("\nConnecting to IBM Bluemix...");
+	Serial.println("\nConnecting to IBM Bluemix Client=");
+	Serial.println(clientID);
+	Serial.println("\n");
 
 	while (!client.connect(cID, authMethod, token)) {
 		Serial.print("+");
@@ -105,7 +115,7 @@ void connectToBluemix() {
 	isBluemixConnected = true;
 }
 //Функция формирования сообщения в формате JSON для отправки к IBM Bluemix
-String buildMqttMessage(float param1, int32_t param2, char* DeviceID)
+String buildMqttMessage(float param1, int32_t param2, String DeviceID)
 {
 	String pl = "{ \"d\" : {\"deviceid\":\"";
 	pl += DeviceID;
@@ -126,9 +136,13 @@ void messageReceived(String topic, String payload, char * bytes, unsigned int le
 //Функция для отправки данных на IBM Bluemix
 void sendSensorDataToBluemix() {
 	if (client.connected()) {
-		Serial.print("Attempting send message to Bluemix...\n");
 
-		String payload = buildMqttMessage(bmp.readTemperature(), bmp.readPressure(), DEVICE_NAME);
+		deviceID = "ESP8266-";
+		Serial.print("Attempting send message to Bluemix to: \n");
+		Serial.print(deviceID);
+		Serial.print("\n");
+		
+		String payload = buildMqttMessage(bmp.readTemperature(), bmp.readPressure(), deviceID);
 		Serial.println((char*)payload.c_str());
 		Serial.println("\n");
 		client.publish(topic, (char*)payload.c_str());
@@ -384,7 +398,7 @@ String ipToString(IPAddress ip) {
 	return s;
 }
 
-char * get_WIFI_STA_SSID() {
+char* get_WIFI_STA_SSID() {
 
 	char chipId[11] = "";
 	sprintf(chipId, "%d", ESP.getChipId());
