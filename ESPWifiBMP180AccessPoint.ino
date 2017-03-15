@@ -138,8 +138,11 @@ void sendSensorDataToBluemix() {
 	if (client.connected()) {
 
 		deviceID = "ESP8266-";
-		Serial.print("Attempting send message to Bluemix to: \n");
-		Serial.print(deviceID);
+		String deviceID1 = "ESP826i6-";
+		deviceID1 += ESP.getChipId();
+
+		Serial.print("Attempting send message to IBM Bluemix to: \n");
+		Serial.print(deviceID1);
 		Serial.print("\n");
 		
 		String payload = buildMqttMessage(bmp.readTemperature(), bmp.readPressure(), deviceID);
@@ -400,8 +403,10 @@ String ipToString(IPAddress ip) {
 
 char* get_WIFI_STA_SSID() {
 
-	char chipId[11] = "";
+	char chipId[11];
+	clean(chipId);
 	sprintf(chipId, "%d", ESP.getChipId());
+
 	char * str = "ESP8266-";
 	strcat(str, chipId);
 	return str;
@@ -409,4 +414,12 @@ char* get_WIFI_STA_SSID() {
 
 char * get_WIFI_STA_PWD() {
 	return "12345678";
+}
+
+void clean(char *var) {
+	int i = 0;
+	while (var[i] != '\0') {
+		var[i] = '\0';
+		i++;
+	}
 }
