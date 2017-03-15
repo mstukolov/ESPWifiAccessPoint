@@ -97,10 +97,8 @@ void testInternetConnection() {
 //Функция подключения к сервису IBM Bluemix
 void connectToBluemix() {
 
-	//String chip = ESP.getChipId();
-
 	clientID = "d:" ORG ":" DEVICE_TYPE ":" "ESP8266-";
-
+	clientID += ESP.getChipId();
 	clientID.toCharArray(cID, 50);
 	client.begin(mqttserver, 8883, net);
 	Serial.println("\nConnecting to IBM Bluemix Client=");
@@ -138,18 +136,16 @@ void sendSensorDataToBluemix() {
 	if (client.connected()) {
 
 		deviceID = "ESP8266-";
-		String deviceID1 = "ESP826i6-";
-		deviceID1 += ESP.getChipId();
+		deviceID += ESP.getChipId();
 
-		Serial.print("Attempting send message to IBM Bluemix to: \n");
-		Serial.print(deviceID1);
+		Serial.print("Attempting send message to IBM Bluemix to: ");
+		Serial.print(deviceID);
 		Serial.print("\n");
 		
 		String payload = buildMqttMessage(bmp.readTemperature(), bmp.readPressure(), deviceID);
 		Serial.println((char*)payload.c_str());
 		Serial.println("\n");
 		client.publish(topic, (char*)payload.c_str());
-		Serial.print("Message was sent to Bluemix...\n");
 
 	}
 	else {
@@ -403,11 +399,10 @@ String ipToString(IPAddress ip) {
 
 char* get_WIFI_STA_SSID() {
 
-	char chipId[11];
-	clean(chipId);
+	char chipId[11] = "";
 	sprintf(chipId, "%d", ESP.getChipId());
 
-	char * str = "ESP8266-";
+	char * str = "ESP8266-WIFI-";
 	strcat(str, chipId);
 	return str;
 }
@@ -416,10 +411,3 @@ char * get_WIFI_STA_PWD() {
 	return "12345678";
 }
 
-void clean(char *var) {
-	int i = 0;
-	while (var[i] != '\0') {
-		var[i] = '\0';
-		i++;
-	}
-}
