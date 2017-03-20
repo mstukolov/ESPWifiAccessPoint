@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ESPWifiBMP180AccessPoint", "ESPWifiBMP180AccessPoint.vcxproj", "{C5F80730-F44F-4478-BDAE-6634EFC2CA88}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BaseWifiAccesPointFirmware", "..\BaseWifiAccesPointFirmware\BaseWifiAccesPointFirmware.vcxproj", "{D6BCD4A1-54B0-4833-80AA-18FE104C5352}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "YL38_BaseFirmware", "..\YL38_BaseFirmware\YL38_BaseFirmware.vcxproj", "{5D063DA9-1077-4EF9-92EE-47B3F37CC820}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -15,6 +19,14 @@ Global
 		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Debug|x86.Build.0 = Debug|Win32
 		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Release|x86.ActiveCfg = Release|Win32
 		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Release|x86.Build.0 = Release|Win32
+		{D6BCD4A1-54B0-4833-80AA-18FE104C5352}.Debug|x86.ActiveCfg = Debug|Win32
+		{D6BCD4A1-54B0-4833-80AA-18FE104C5352}.Debug|x86.Build.0 = Debug|Win32
+		{D6BCD4A1-54B0-4833-80AA-18FE104C5352}.Release|x86.ActiveCfg = Release|Win32
+		{D6BCD4A1-54B0-4833-80AA-18FE104C5352}.Release|x86.Build.0 = Release|Win32
+		{5D063DA9-1077-4EF9-92EE-47B3F37CC820}.Debug|x86.ActiveCfg = Debug|Win32
+		{5D063DA9-1077-4EF9-92EE-47B3F37CC820}.Debug|x86.Build.0 = Debug|Win32
+		{5D063DA9-1077-4EF9-92EE-47B3F37CC820}.Release|x86.ActiveCfg = Release|Win32
+		{5D063DA9-1077-4EF9-92EE-47B3F37CC820}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
